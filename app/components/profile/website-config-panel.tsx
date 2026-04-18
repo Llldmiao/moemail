@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { EMAIL_CONFIG } from "@/config"
+import { useConfig } from "@/hooks/use-config"
 
 export function WebsiteConfigPanel() {
   const t = useTranslations("profile.website")
@@ -32,6 +33,7 @@ export function WebsiteConfigPanel() {
   const [showSecretKey, setShowSecretKey] = useState(false)
   const [loading, setLoading] = useState(false)
   const { toast } = useToast()
+  const { fetch: refreshConfig } = useConfig()
 
 
   useEffect(() => {
@@ -82,6 +84,7 @@ export function WebsiteConfigPanel() {
       })
 
       if (!res.ok) throw new Error(t("saveFailed"))
+      await refreshConfig()
 
       toast({
         title: t("saveSuccess"),

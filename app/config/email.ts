@@ -10,3 +10,16 @@ export const EMAIL_CONFIG = {
 } as const
 
 export type EmailConfig = typeof EMAIL_CONFIG 
+
+export const DEFAULT_EMAIL_DOMAINS = "moemail.app"
+
+export function parseEmailDomains(emailDomains?: string | null) {
+  return (emailDomains || DEFAULT_EMAIL_DOMAINS)
+    .split(',')
+    .map(domain => domain.trim())
+    .filter(Boolean)
+}
+
+export function normalizeEmailDomains(emailDomains?: string | null) {
+  return parseEmailDomains(emailDomains).join(',')
+}

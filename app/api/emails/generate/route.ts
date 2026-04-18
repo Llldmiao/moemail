@@ -4,7 +4,7 @@ import { createDb } from "@/lib/db"
 import { emails } from "@/lib/schema"
 import { eq, and, gt, sql } from "drizzle-orm"
 import { EXPIRY_OPTIONS } from "@/types/email"
-import { EMAIL_CONFIG } from "@/config"
+import { EMAIL_CONFIG, parseEmailDomains } from "@/config"
 import { getRequestContext } from "@cloudflare/next-on-pages"
 import { getUserId } from "@/lib/apiKey"
 import { getUserRole } from "@/lib/auth"
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
     }
 
     const domainString = await env.SITE_CONFIG.get("EMAIL_DOMAINS")
-    const domains = domainString ? domainString.split(',') : ["moemail.app"]
+    const domains = parseEmailDomains(domainString)
 
     if (!domains || !domains.includes(domain)) {
       return NextResponse.json(

@@ -1,6 +1,6 @@
 import { PERMISSIONS, Role, ROLES } from "@/lib/permissions"
 import { getRequestContext } from "@cloudflare/next-on-pages"
-import { EMAIL_CONFIG } from "@/config"
+import { DEFAULT_EMAIL_DOMAINS, EMAIL_CONFIG, normalizeEmailDomains } from "@/config"
 import { checkPermission } from "@/lib/auth"
 
 export const runtime = "edge"
@@ -29,7 +29,7 @@ export async function GET() {
 
   return Response.json({
     defaultRole: defaultRole || ROLES.CIVILIAN,
-    emailDomains: emailDomains || "moemail.app",
+    emailDomains: normalizeEmailDomains(emailDomains || DEFAULT_EMAIL_DOMAINS),
     adminContact: adminContact || "",
     maxEmails: maxEmails || EMAIL_CONFIG.MAX_ACTIVE_EMAILS.toString(),
     turnstile: canManageConfig ? {
@@ -81,10 +81,12 @@ export async function POST(request: Request) {
     return Response.json({ error: "Turnstile 启用时需要提供 Site Key 和 Secret Key" }, { status: 400 })
   }
 
+  const normalizedEmailDomains = normalizeEmailDomains(emailDomains)
+
   const env = getRequestContext().env
   await Promise.all([
     env.SITE_CONFIG.put("DEFAULT_ROLE", defaultRole),
-    env.SITE_CONFIG.put("EMAIL_DOMAINS", emailDomains),
+    env.SITE_CONFIG.put("EMAIL_DOMAINS", normalizedEmailDomains),
     env.SITE_CONFIG.put("ADMIN_CONTACT", adminContact),
     env.SITE_CONFIG.put("MAX_EMAILS", maxEmails),
     env.SITE_CONFIG.put("TURNSTILE_ENABLED", turnstileConfig.enabled.toString()),
