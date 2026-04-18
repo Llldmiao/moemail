@@ -59,7 +59,7 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ['var(--font-zpix)'],
+        sans: ['var(--font-app)'],
         zpix: ['var(--font-zpix)'],
       },
       keyframes: {

@@ -107,6 +107,12 @@
     "adminContact": "管理员联系方式",
     "adminContactPlaceholder": "邮箱或其他联系方式",
     "maxEmails": "每个用户最大邮箱数",
+    "fontStyle": {
+      "label": "字体风格",
+      "pixel": "像素风",
+      "system": "系统默认",
+      "serif": "衬线"
+    },
     "turnstile": {
       "enable": "启用 Cloudflare Turnstile",
       "enableDescription": "开启后，账号登录与注册将需要通过 Turnstile 验证",

@@ -120,7 +120,7 @@ export default async function LocaleLayout({
       <body 
         className={cn(
           zpix.variable,
-          "font-zpix min-h-screen antialiased",
+          "font-sans min-h-screen antialiased",
           "bg-background text-foreground",
           "transition-colors duration-300"
         )}
@@ -144,4 +144,3 @@ export default async function LocaleLayout({
     </html>
   )
 }
-

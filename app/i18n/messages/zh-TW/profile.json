@@ -107,6 +107,12 @@
     "adminContact": "管理員聯絡方式",
     "adminContactPlaceholder": "郵箱或其他聯絡方式",
     "maxEmails": "每個使用者最大郵箱數",
+    "fontStyle": {
+      "label": "字體風格",
+      "pixel": "像素風",
+      "system": "系統預設",
+      "serif": "襯線"
+    },
     "turnstile": {
       "enable": "啟用 Cloudflare Turnstile",
       "enableDescription": "啟用後，使用者名稱與密碼的登入／註冊需要通過 Turnstile 驗證",

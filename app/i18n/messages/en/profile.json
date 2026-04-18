@@ -107,6 +107,12 @@
     "adminContact": "Admin Contact",
     "adminContactPlaceholder": "Email or other contact method",
     "maxEmails": "Max Emails per User",
+    "fontStyle": {
+      "label": "Font Style",
+      "pixel": "Pixel",
+      "system": "System",
+      "serif": "Serif"
+    },
     "turnstile": {
       "enable": "Enable Cloudflare Turnstile",
       "enableDescription": "When enabled, username/password login and registration require Turnstile verification",

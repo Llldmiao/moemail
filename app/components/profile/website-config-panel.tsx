@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { EMAIL_CONFIG } from "@/config"
+import { EMAIL_CONFIG, FontStyle, FONT_STYLES } from "@/config"
 import { useConfig } from "@/hooks/use-config"
 
 export function WebsiteConfigPanel() {
@@ -27,6 +27,7 @@ export function WebsiteConfigPanel() {
   const [emailDomains, setEmailDomains] = useState<string>("")
   const [adminContact, setAdminContact] = useState<string>("")
   const [maxEmails, setMaxEmails] = useState<string>(EMAIL_CONFIG.MAX_ACTIVE_EMAILS.toString())
+  const [fontStyle, setFontStyle] = useState<FontStyle>("pixel")
   const [turnstileEnabled, setTurnstileEnabled] = useState(false)
   const [turnstileSiteKey, setTurnstileSiteKey] = useState("")
   const [turnstileSecretKey, setTurnstileSecretKey] = useState("")
@@ -48,6 +49,7 @@ export function WebsiteConfigPanel() {
         emailDomains: string,
         adminContact: string,
         maxEmails: string,
+        fontStyle: FontStyle,
         turnstile?: {
           enabled: boolean,
           siteKey: string,
@@ -58,6 +60,7 @@ export function WebsiteConfigPanel() {
       setEmailDomains(data.emailDomains)
       setAdminContact(data.adminContact)
       setMaxEmails(data.maxEmails || EMAIL_CONFIG.MAX_ACTIVE_EMAILS.toString())
+      setFontStyle(data.fontStyle || "pixel")
       setTurnstileEnabled(Boolean(data.turnstile?.enabled))
       setTurnstileSiteKey(data.turnstile?.siteKey ?? "")
       setTurnstileSecretKey(data.turnstile?.secretKey ?? "")
@@ -75,6 +78,7 @@ export function WebsiteConfigPanel() {
           emailDomains,
           adminContact,
           maxEmails: maxEmails || EMAIL_CONFIG.MAX_ACTIVE_EMAILS.toString(),
+          fontStyle,
           turnstile: {
             enabled: turnstileEnabled,
             siteKey: turnstileSiteKey,
@@ -157,6 +161,20 @@ export function WebsiteConfigPanel() {
               placeholder={`${EMAIL_CONFIG.MAX_ACTIVE_EMAILS}`}
             />
           </div>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <span className="text-sm">{t("fontStyle.label")}:</span>
+          <Select value={fontStyle} onValueChange={(value) => setFontStyle(value as FontStyle)}>
+            <SelectTrigger className="w-40">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {FONT_STYLES.map((style) => (
+                <SelectItem key={style} value={style}>{t(`fontStyle.${style}`)}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="space-y-4 rounded-lg border border-dashed border-primary/40 p-4">

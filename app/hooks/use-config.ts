@@ -2,7 +2,7 @@
 
 import { create } from "zustand"
 import { Role, ROLES } from "@/lib/permissions"
-import { EMAIL_CONFIG, parseEmailDomains } from "@/config"
+import { EMAIL_CONFIG, FontStyle, normalizeFontStyle, parseEmailDomains } from "@/config"
 import { useEffect } from "react"
 
 interface Config {
@@ -11,6 +11,7 @@ interface Config {
   emailDomainsArray: string[]
   adminContact: string
   maxEmails: number
+  fontStyle: FontStyle
 }
 
 interface ConfigStore {
@@ -36,7 +37,8 @@ const useConfigStore = create<ConfigStore>((set) => ({
           emailDomains: data.emailDomains,
           emailDomainsArray: parseEmailDomains(data.emailDomains),
           adminContact: data.adminContact || "",
-          maxEmails: Number(data.maxEmails) || EMAIL_CONFIG.MAX_ACTIVE_EMAILS
+          maxEmails: Number(data.maxEmails) || EMAIL_CONFIG.MAX_ACTIVE_EMAILS,
+          fontStyle: normalizeFontStyle(data.fontStyle)
         },
         loading: false
       })
